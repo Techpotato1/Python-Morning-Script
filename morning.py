@@ -50,9 +50,7 @@ Developer Options:
 15. Autofill the weather location from IP (Might be buggy)
 16. Print your public IP address
 17. List the contents of the info folder
-18. Save text to speech to a file
-19. Delete audio.mp3
-20. Generate a random number
+18. Generate a random number
 \n""")
 
 #a function to get the weather
@@ -335,22 +333,22 @@ while choice != "6":
         print("\n")
 
     #if the user chooses 18, save a file called audio.mp3 with a text to speech voice
-    elif choice == "18" or choice == "save tts":
-        # On linux make sure that 'espeak' and 'ffmpeg' are installed
-        textinput = input("What would you like to say? \n")
-        engine.save_to_file(textinput, "audio.mp3")
-        engine.runAndWait()
-        print("File saved as audio.mp3")
+    #elif choice == "18" or choice == "save tts":
+    #    # On linux make sure that 'espeak' and 'ffmpeg' are installed
+    #    textinput = input("What would you like to say? \n")
+    #    engine.save_to_file(textinput, "audio.mp3")
+    #    engine.runAndWait()
+    #    print("File saved as audio.mp3")
 
     #if the user chooses 19, delete the audio.mp3 file
-    elif choice == "19" or choice == "delete tts":
-        os.remove("audio.mp3")
-        print_with_color("Deleting audio.mp3...", color=Fore.RED, brightness=Style.DIM)
-        time.sleep(0.5)
-        print_with_color("Done!", color=Fore.GREEN, brightness=Style.DIM)
+    #elif choice == "19" or choice == "delete tts":
+    #    os.remove("audio.mp3")
+    #    print_with_color("Deleting audio.mp3...", color=Fore.RED, brightness=Style.DIM)
+    #    time.sleep(0.5)
+    #    print_with_color("Done!", color=Fore.GREEN, brightness=Style.DIM)
 
     #if the user chooses 20, choose a random number
-    elif choice == "20" or choice == "randomnum":
+    elif choice == "18" or choice == "randomnum":
         firstbetween = int(input("What is the smallest number? \n"))
         secondbetween = int(input("What is the largest number? \n"))
         if firstbetween > secondbetween:
