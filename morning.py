@@ -332,6 +332,7 @@ while choice != "6":
             print(i)
         print("\n")
 
+    #unsed code for text to speech functionality
     #if the user chooses 18, save a file called audio.mp3 with a text to speech voice
     #elif choice == "18" or choice == "save tts":
     #    # On linux make sure that 'espeak' and 'ffmpeg' are installed
