@@ -1,3 +1,4 @@
+from base64 import decode
 import datetime
 import os
 import random
@@ -12,6 +13,7 @@ from colorama import init, Fore, Back, Style
 from datetime import datetime
 import keyboard
 import wikipedia
+import sys
 
 # essential for Windows environment
 init()
@@ -59,7 +61,7 @@ def gettimespecific():
 
 def printoptions():
     print("""What would you like to do next? \n
-1. Check the time (unstable)
+1. Check the time
 2. Check the date
 3. Change the weather location
 4. Check the weather
@@ -72,7 +74,7 @@ Developer Options:
 10. List the contents of the current directory
 11. Check the time that the program was last run
 12. Open a URL
-13. Autofill the weather location from IP (Might be buggy)
+13. Autofill the weather location from IP
 14. Print your public IP address
 15. List the contents of the info folder
 16. Generate a random number
@@ -226,8 +228,9 @@ currenttime = gettime()
 
 # if userinfo.txt exists, open it and read the name
 try:
-    with open("info/userinfo.txt", "r") as f:
-        name = f.read()
+    with open("info/userinfo.txt", "rb") as f:
+        nameencoded = f.read()
+        name = nameencoded.decode("utf-8", "strict")
 except:
     pass
 
@@ -268,8 +271,9 @@ if name == "":
 
 # create a file called userinfo.txt and write the name to it
 try:
-    with open("info/userinfo.txt", "w") as file:
-        file.write(name)
+    with open("info/userinfo.txt", "wb") as file:
+        nameencoded = name.encode("utf-8", "strict")
+        file.write(nameencoded)
 except:
     print_with_color("Error creating file!",
                      color=Fore.RED, brightness=Style.DIM)
@@ -294,15 +298,13 @@ while choice != "7":
 
     # if the user chooses 1, check the time
     if choice == "1" or choice == "time":
-        # continuiously check the time and print it out until the user presses escape
-        while keyboard.is_pressed("esc") == False:
-            currenttime = gettimespecific()
-            print("\n")
-            print("Time: " + currenttime)
-            print("\n")
-            print("Press 'esc' to exit")
-            clearscreen()
-            continue
+        timeold = ""
+        while not keyboard.is_pressed("esc"):
+            curtime = gettimespecific()
+            if not timeold == curtime:
+                timeold = curtime
+                clearscreen()
+                print("The time is " + timeold + "\nPress 'esc' to exit")
 
     # if the user chooses 2, check the date
     elif choice == "2" or choice == "date":
@@ -370,7 +372,10 @@ while choice != "7":
         else:
             print("Goodbye!")
             time.sleep(0.5)
-            exit()
+            try:
+                sys.exit()
+            except:
+                os._exit(0)
 
     # if the user chooses 10, clear the screen
     elif choice == "8" or choice == "clear":
