@@ -64,20 +64,19 @@ def printoptions():
 3. Change the weather location
 4. Check the weather
 5. Change your name
-6. Search Wikipedia
-7. Wikipedia, change sentence count
-8. Exit \n
+6. Wikipedia
+7. Exit \n
 Developer Options:
-9. Clear the screen
-10. Delete the info folder
-11. List the contents of the current directory
-12. Check the time that the program was last run
-13. Open a URL
-14. Autofill the weather location from IP (Might be buggy)
-15. Print your public IP address
-16. List the contents of the info folder
-17. Generate a random number
-18. Calculate PI
+8. Clear the screen
+9. Delete the info folder
+10. List the contents of the current directory
+11. Check the time that the program was last run
+12. Open a URL
+13. Autofill the weather location from IP (Might be buggy)
+14. Print your public IP address
+15. List the contents of the info folder
+16. Generate a random number
+17. Calculate PI
 \n""")
 
 # a function to get the weather from the API
@@ -211,6 +210,7 @@ oldtimeanddate = ""
 engine = pyttsx3.init()
 engine.setProperty('rate', 120)
 wikipediacount = 3
+wikipediachoice = "0"
 
 # Get the contents of the current directory
 contentsofdir = os.listdir(os.getcwd())
@@ -282,7 +282,7 @@ print("Today's date is " + date)
 print("The time is " + currenttime)
 
 # don't exit the program until the user enters 3
-while choice != "8":
+while choice != "7":
 
     # prints the options for the user to choose from
     printoptions()
@@ -338,26 +338,30 @@ while choice != "8":
             print_with_color("Invalid Name!", color=Fore.RED)
 
     elif choice == "6" or choice == "wikipedia":
-        try:
-            searchterm = input('Enter a search term: \n' +
-                               '(Use parentheses to denote the type, ex: "Mars (Planet)") \n')
-            clearscreen()
-            print("Loading!")
-            print(wikipedia.summary(searchterm, sentences=wikipediacount))
-        except wikipedia.exceptions.DisambiguationError:
-            print_with_color("Invalid Search Term!", color=Fore.RED)
-            print_with_color("Try again!", color=Fore.RED)
-            
-    elif choice == "7" or choice == "sentances":
-        try:
-            wikipediacount = int(input('Enter the number of sentences to display: \n'))
-            print_with_color("Number of sentences changed to: " + str(wikipediacount), color=Fore.GREEN)
-        except:
-            print_with_color("Invalid Number!", color=Fore.RED)
-
-
+        print("1. Search Wikipedia \n" + "2. Change sentance count")
+        wikipediachoice = input("What would you like to do \n")
+        if wikipediachoice == "1":
+            try:
+                clearscreen()
+                searchterm = input('Enter a search term: \n' + '(Use parentheses to denote the type, ex: "Mars (Planet)") \n')
+                clearscreen()
+                print("Loading!")
+                print(wikipedia.summary(searchterm, sentences=wikipediacount))
+            except wikipedia.exceptions.DisambiguationError:
+                print_with_color("Invalid Search Term!", color=Fore.RED)
+                print_with_color("Try again!", color=Fore.RED)
+        elif wikipediachoice == "2":
+            try:
+                clearscreen()
+                wikipediacount = int(input('Enter the number of sentences to display: \n'))
+                print_with_color("Number of sentences changed to: " + str(wikipediacount), color=Fore.GREEN)
+            except:
+                print_with_color("Invalid Number!", color=Fore.RED)
+        else:
+            print_with_color("Invalid number!", color=Fore.RED)
+        
     # if the user chooses 6, exit the program
-    elif choice == "8" or choice == "exit":
+    elif choice == "7" or choice == "exit":
         clearscreen()
         i = input("Press Enter to continue or type cancel to cancel: \n")
         if i == "Cancel" or "cancel" in i:
@@ -369,13 +373,13 @@ while choice != "8":
             exit()
 
     # if the user chooses 10, clear the screen
-    elif choice == "9" or choice == "clear":
+    elif choice == "8" or choice == "clear":
         print("Clearing screen...")
         time.sleep(0.5)
         clearscreen()
 
     # if the user chooses 11, delete the info folder
-    elif choice == "10" or choice == "delete info":
+    elif choice == "9" or choice == "delete info":
         try:
             shutil.rmtree("info")
             print_with_color("Deleting info folder...",
@@ -386,39 +390,39 @@ while choice != "8":
             pass
 
     # if the user chooses 12, list the contents of the current directory
-    elif choice == "11" or choice == "list current dir":
+    elif choice == "10" or choice == "list current dir":
         print("Contents of the current directory: \n")
         for i in contentsofdir:
             print(i)
         print("\n")
 
     # if the user chooses 13, display the time the program was last run
-    elif choice == "12" or choice == "time last run":
+    elif choice == "11" or choice == "time last run":
         if oldtimeanddate == "":
             print("No previous time and date")
         else:
             print(oldtimeanddate)
 
     # if the user chooses 14, ask the user what url they want to open
-    elif choice == "13" or choice == "open url":
+    elif choice == "12" or choice == "open url":
         # ask the user what url they want to open
         urlopen = input("What is the url you want to open? \n")
         # open the url in the default browser
         webbrowser.open(urlopen)
 
     # if the user chooses 15, locate their current location using their IP address
-    elif choice == "14" or choice == "ip locate":
+    elif choice == "13" or choice == "ip locate":
         weatherlocation = getcity(ip_address)
         with open("info/weatherlocation.txt", "w") as file:
             file.write(weatherlocation)
         print("Your city is " + weatherlocation + "." + "\n")
 
     # if the user chooses 16, display their current IP address
-    elif choice == "15" or choice == "ip":
+    elif choice == "14" or choice == "ip":
         print("Your IP address is " + ip_address + "." + "\n")
 
     # if the user chooses 17, display contents of the info folder
-    elif choice == "16" or choice == "list info":
+    elif choice == "15" or choice == "list info":
         print("Contents of the info directory: \n")
         contentsofinfodir = os.listdir("info")
         for i in contentsofinfodir:
@@ -426,7 +430,7 @@ while choice != "8":
         print("\n")
 
     # if the user chooses 20, choose a random number
-    elif choice == "17" or choice == "randomnum":
+    elif choice == "16" or choice == "randomnum":
         firstbetween = int(input("What is the smallest number? \n"))
         secondbetween = int(input("What is the largest number? \n"))
         if firstbetween > secondbetween:
@@ -435,7 +439,7 @@ while choice != "8":
         else:
             print("Your random number is " +
                   str(random.randint(firstbetween, secondbetween)) + "." + "\n")
-    elif choice == "18" or choice == "pi":
+    elif choice == "17" or choice == "pi":
         start = datetime.now()
         try:
             main()
