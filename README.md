@@ -1,2 +1,1 @@
-A simple python script that can search wikipedia, tell you the weather, and more!
-All menus now work like the time checking menu. Also I reordered all the menus. Also theres background music and credits at the bottom
+A simple python script that can search wikipedia, tell you the weather, and more! Which flavor do you want? We have console window, bad gui, uhhhh... vscode terminal? web version coming maybe soon at some point?
