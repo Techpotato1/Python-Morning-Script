@@ -1,4 +1,2 @@
 A simple python script that can search wikipedia, tell you the weather, and more!
-Names now support all characters, the time checking menu flickers less, and exiting doesn't give an error
-
-Thanks to @iamplus222 for the bug fixes
+All menus now work like the time checking menu. Also I reordered all the menus. Also theres background music and credits at the bottom
