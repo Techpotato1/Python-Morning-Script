@@ -1,1 +1,3 @@
-A simple python script that can search wikipedia, tell you the weather, and more! Which flavor do you want? We have console window, bad gui, uhhhh... vscode terminal? web version coming maybe soon at some point?
+THIS PROJECT IS ARCHIVED
+
+I am currently working on a complete re-work of the entire project.
